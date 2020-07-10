@@ -1,30 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+GMAK is for MAking Kaptions.
 
-## Getting Started
+live demo is [here](https://gmak.tech/).  
+(Works only in Google Chrome for Desktop.)
 
-First, run the development server:
+# Features
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## ready
+- Speech recognition with time code
+- Downloading captions file in JSON format
+- Downloading the audio file
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## future
+- audio recording
+	- download in .wav format
+	- select input source
+- video recording
+	- downloading
+	- select input source
+- i18n
+	- select language for recognition
+	- translating into any language afterwards
+		- then edit them independently
+- UI/layout
+	- not tab. but side menu.
+	- Audio preview
+		- with highlighting current caption
+- editing captions
+	- display in seconds or time code, frame
+	- "shift this and the latter" functionality
+	- adding/deleting row
+	- adding/deleting/copying tab
+	- downloading in vtt format
+- using downloaded data
+	- import into AfterEffects to generate [this](https://twitter.com/nariakiiwatani/status/1280358237246636032)
+	
+below are memo for me in Japanese.  
+almost same as the future feature above but a bit detailed.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 音声レコーディング
+- wavでDLできるようにする
+- マイク選択できるようにする
 
-## Learn More
+## ビデオレコーディング
+- ビデオのオンオフ
+- カメラ選択できるようにする
+- 音声と一緒にDLできる
+- 後から音声だけDLも可能？要調査
 
-To learn more about Next.js, take a look at the following resources:
+## 多言語対応
+- 認識言語を変更できる
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 翻訳
+- テーブルごと翻訳して別タブ（takeタブ内に言語タブをつくる）にコピー
+- その後は全く別々に編集する。タイムコードの編集も個別に可能。再反映はしない。
+- 翻訳APIに文章をどの単位で投げるかは要検討
+	- まとめて投げないと前後の文脈汲めなそうとか、
+	- そもそも文の途中で途切れてたりとかするし
+	- しかしどうしたら一番良いかは言語によって違いそうだし
+	- 一旦安直に行毎に投げる仕様にするか？
+	- それとも全文を投げて、各行に分割するためのUIを別で作るか？
 
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
+## UI/レイアウト
+- タブじゃなくサイドメニュー的なやつの方が良いかも？ 
+- 音声プレビュー
+	- タイムラインに応じて行をハイライト表示したい
 
-## Deploy on Vercel
+## 字幕データ編集
+- 秒・タイムコード・フレームでの表記切替
+- 「ここ以降の開始時刻をシフト」する機能
+- 行の追加、削除
+- 時刻の編集がしにくい。React Hooksの理解が足りない。
+- タブの名前変更
+- タブの削除
+- タブのコピー
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 字幕データDL
+- JSON、VTT
+- 翻訳がある場合は統合または別ファイルのJSON、または別ファイルのVTTでDL可能
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## AfterEffectsへのインポート
+- JSONかVTTから[これ](https://twitter.com/nariakiiwatani/status/1280358237246636032)を生成するスクリプトを書く
+	- VTTだとパース面倒そうだしスタイルの反映（もしくは無視）とか考えなきゃいけないのでJSONのみ対応する予定
+
