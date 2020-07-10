@@ -104,9 +104,12 @@ const VoiceInput = props => {
 	handleSpeechInterimRef.current = handleSpeechInterim
 	handleSpeechFinishRef.current = handleSpeechFinish
 	const [analyzer, setAnalyzer] = useState(null)
+	const [isAnalyzerImplemented, setAnalyzerImplemented] = useState(true)
 	useEffect(() => {
-	}, [])
-	useEffect(() => {
+		if (!Analyzer.IsImplemented()) {
+			setAnalyzerImplemented(false)
+			return
+		}
 		const a = (() => {
 			if (analyzer === null) {
 				const analyzerCallbacks = {
@@ -133,24 +136,29 @@ const VoiceInput = props => {
 		}
 	}, [isRecording])
 
-	return (<>
-		<div
-			className={classes.micWrapper}
-		>
-			<Button
-				variant="contained"
-				color={isRecording ? "primary" : "secondary"}
-				startIcon={<Mic />}
-				onClick={toggleRecording}
-			>
-				{isRecording ? "Stop Recording" : "Start New Recording"}
-			</Button>
-			{isRecording && <CircularProgress size={30} color="secondary" thickness={5} className={classes.micProgress} />}
-		</div>
+	return (
+		isAnalyzerImplemented ?
+			(<>
+				<div
+					className={classes.micWrapper}
+				>
+					<Button
+						variant="contained"
+						color={isRecording ? "primary" : "secondary"}
+						startIcon={<Mic />}
+						onClick={toggleRecording}
+					>
+						{isRecording ? "Stop Recording" : "Start New Recording"}
+					</Button>
+					{isRecording && <CircularProgress size={30} color="secondary" thickness={5} className={classes.micProgress} />}
+				</div>
 
-		{/*		<InputEmulator enabled={isRecording} onStart={handleSpeechStart} onCancel={handleSpeechCancel} onFinish={handleSpeechFinish} />*/}
-		<CommentTable comments={comments} onDelete={handleCommentDelete} onEdit={handleCommentEdit} />
-	</>
+				<CommentTable comments={comments} onDelete={handleCommentDelete} onEdit={handleCommentEdit} />
+			</>)
+			: (<div>
+				<p>It looks like your browser doesn't support SpeechRecognitionAPI.</p>
+				<p>Please try with Google Chrome for Desktop.</p>
+			</div>)
 	)
 }
 

@@ -2,14 +2,21 @@ class Analyzer {
 	recognition: any;
 	continuous: boolean = true
 	isFinish: boolean = false;
+	initialized: boolean = false
+	static IsImplemented() {
+		return "webkitSpeechRecognition" in window
+			|| "SpeechRecognition" in window
+	}
 	constructor(callbackRefs: {
 		start, cancel, finish, interim
 	}) {
 		const recognition = ((klass) => {
-			return new klass();
+			return klass && new klass();
 			// @ts-ignore Property 'webkitSpeechRecognition' does not exist on type 'Window & typeof globalThis'.
 		})(webkitSpeechRecognition || SpeechRecognition);
-
+		if (!recognition) {
+			return
+		}
 		recognition.interimResults = (callbackRefs.interim !== undefined);
 		recognition.maxAlternatives = 1;
 		recognition.continuous = false;
@@ -59,6 +66,7 @@ class Analyzer {
 			}
 		}
 		this.recognition = recognition;
+		this.initialized = true
 	}
 	start() {
 		try {

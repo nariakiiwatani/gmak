@@ -1,6 +1,6 @@
 GMAK is for MAking Kaptions.
 
-live demo is [here](https://gmak.tech/).  
+beta site in operation is [here](https://gmak.tech/).  
 (Works only in Google Chrome for Desktop.)
 
 # Features
