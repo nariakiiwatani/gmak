@@ -12,10 +12,6 @@ const CommentTable = (props: {
 }) => {
 	const { comments, onEdit, onDelete } = props
 	const handleEdit = (i, n, v) => {
-		switch (n) {
-			case "time": v *= 1000; break;
-			case "duration": v *= 1000; break;
-		}
 		onEdit(i, n, v)
 	}
 	return (<>
@@ -23,8 +19,8 @@ const CommentTable = (props: {
 			{comments
 				.map(c => ({
 					...c,
-					time: c.time / 1000,
-					duration: c.duration / 1000
+					time: c.time,
+					duration: c.duration
 				}))
 				.map((c, i) =>
 					<ListItem key={i}>

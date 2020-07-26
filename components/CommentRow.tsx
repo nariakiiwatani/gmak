@@ -9,11 +9,11 @@ const CommentRow = props => {
 			alignItems="center">
 			<Grid item
 				xs={1}>
-				<TextField label="startTime" value={time.toFixed(2)} onChange={e => onEdit("time", e.target.value)} />
+				<TextField label="startTime" value={time.toFixed(3)} onChange={e => onEdit("time", e.target.value)} />
 			</Grid>
 			<Grid item
 				xs={1}>
-				<TextField label="duration" value={duration.toFixed(2)} onChange={e => onEdit("duration", e.target.value)} />
+				<TextField label="duration" value={duration.toFixed(3)} onChange={e => onEdit("duration", e.target.value)} />
 			</Grid>
 			<Grid item
 				xs={true}>

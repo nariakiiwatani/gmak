@@ -30,7 +30,7 @@ const VoiceInput = props => {
 	const recorder = useMemo(() => new Recorder(), [])
 	const handleStartRecording = () => {
 		recorder.start({ audio: true, video: false })
-		setStartTime(Date.now())
+		setStartTime(Date.now() / 1000)
 		setIsRecording(true)
 	}
 	const handleStopRecording = async () => {
@@ -42,7 +42,7 @@ const VoiceInput = props => {
 	const toggleRecording = () => isRecording ? handleStopRecording() : handleStartRecording()
 
 	const newComment = (): Comment => ({
-		time: Date.now(),
+		time: Date.now() / 1000,
 		duration: 0,
 		comment: ""
 	})
@@ -73,7 +73,7 @@ const VoiceInput = props => {
 			setComments(prev => [...prev, {
 				...pending,
 				time: pending.time - startTime,
-				duration: Date.now() - pending.time,
+				duration: Date.now() / 1000 - pending.time,
 				comment: text
 			}])
 		} :
